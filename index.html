@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+
+    <style>
+
+        body{
+            background-color: rgb(255, 241, 241);
+            aspect-ratio: 9/16;
+            border-radius: 10px;
+            height: 700px;
+            width: 500px;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .calculator{
+            background-color: rgb(217, 38, 38);
+            border-radius: 20px;
+            aspect-ratio: 9/16;
+            height: 700px;
+            width: 610px;
+        }
+
+        .display{
+            background-color: black;
+            height: 100px;
+            width: 580px;
+            border-radius: 15px;
+            color: white;
+            font-size: 40px;
+            text-align: right;
+            padding: 30px 30px 0px 0px;
+        }
+
+        .heading{
+            width: 290px;
+            height: 50px;
+            margin-top: 20px;
+            font-weight: bold;;
+            font-size: 30px;
+            padding:10px 0px 0px 0px;
+            background-color: #e31262;
+            position:relative;
+            left: 170px;
+            color: white;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        h1{
+            text-align: center;
+        }
+
+        a{
+            color: black
+        }
+
+        .equal{
+            position: absolute;
+            left: 520px;
+            height: 380px;
+            bottom: 120px;
+            width: 80px;
+            font-weight: bold;
+            font-size: 30px;
+            margin: 10px 10px 10px 10px;
+            background-color: yellow;
+            border-radius: 10px;
+        }
+
+        .one,.two,.three,.four,.five,.six,.seven,.eight,.nine,.zero,.dec,.add,.sub,.mul,.div,.inv,.sqr,.sqrt,.clr,.bckspc{
+            height: 80px;
+            width: 80px;
+            font-weight: bold;
+            font-size: 30px;
+            margin: 10px 10px 10px 10px;
+            background-color: yellow;
+            border-radius: 10px;
+        }
+
+        .one:hover,.two:hover,.three:hover,.four:hover,.five:hover,.six:hover,.seven:hover,.eight:hover,.nine:hover,.zero:hover,.dec:hover,.add:hover,.sub:hover,.mul:hover,.div:hover,.inv:hover,.sqr:hover,.sqrt:hover,.clr:hover,.bckspc:hover,.equal:hover{
+            background-color:rgb(255, 217, 1);
+        }
+
+        .one:active,.two:active,.three:active,.four:active,.five:active,.six:active,.seven:active,.eight:active,.nine:active,.zero:active,.dec:active,.add:active,.sub:active,.mul:active,.div:active,.inv:active,.sqr:active,.sqrt:active,.clr:active,.bckspc:active,.equal:active{
+            transform: scale(0.90);
+        }
+
+    </style>
+
+
+</head>
+<body>
+
+    <div class="calculator">
+
+        <div display class="display">0</div>
+
+        <div class="heading">
+             Simple Calculator 
+        </div>
+
+        <button datanumber class="one">1</button>
+        <button datanumber class="two">2</button>
+        <button datanumber class="three">3</button>
+        <button datanumber class="four">4</button>
+        <button datanumber class="five">5</button>
+        <button datanumber class="six">6</button>
+        <button datanumber class="seven">7</button>
+        <button datanumber class="eight">8</button>
+        <button datanumber class="nine">9</button>
+        <button datanumber class="zero">0</button>
+        <button datanumber class="dec">.</button>
+        <button dataresult class="equal">=</button>
+        <button dataoperator class="add">+</button>
+        <button dataoperator class="sub">-</button>
+        <button dataoperator class="mul">x</button>
+        <button dataoperator class="div">/</button>
+        <button dataoperator class="inv">1/x</button>
+        <button dataoperator class="sqr">x^2</button>
+        <button dataoperator class="sqrt">√x</button>
+        <button dataclear class="clr">C</button>
+        <button databckspc class="bckspc">BS</button>
+
+        <section>
+            <h1>Made By <a href="https://www.linkedin.com/in/shitalpal">Shital Pal</a></h1>
+        </section>
+
+    </div>
+
+    <script>
+
+        // Select elements
+const display = document.querySelector('.display');
+const numberButtons = document.querySelectorAll('[datanumber]');
+const operatorButtons = document.querySelectorAll('[dataoperator]');
+const clearButton = document.querySelector('[dataclear]');
+const backspaceButton = document.querySelector('[databckspc]');
+const equalsButton = document.querySelector('[dataresult]');
+
+// Variables to store the state
+let currentInput = ''; // Current input
+let previousInput = ''; // Previous input
+let operator = null; // Current operator
+
+// Function to update the display
+function updateDisplay(value) {
+  display.textContent = value || '0'; // Default to '0' if value is empty
+}
+
+// Handle number button clicks
+numberButtons.forEach(button => {
+  button.addEventListener('click', function () {
+    if (this.textContent === '.' && currentInput.includes('.')) return; // Prevent multiple decimals
+    currentInput += this.textContent;
+    updateDisplay(currentInput);
+  });
+});
+
+// Handle operator button clicks
+// Handle operator button clicks
+operatorButtons.forEach(button => {
+  button.addEventListener('click', function () {
+    const operation = this.textContent;
+
+    // Handle single-operand operators immediately
+    if (operation === '1/x' || operation === 'x^2' || operation === '√x') {
+      if (!currentInput) currentInput = '0'; // Assume 0 if no input
+      const value = parseFloat(currentInput);
+      let result;
+
+      switch (operation) {
+        case '1/x':
+          result = value === 0 ? 'Error' : 1 / value;
+          break;
+        case 'x^2':
+          result = value ** 2;
+          break;
+        case '√x':
+          result = value < 0 ? 'Error' : Math.sqrt(value);
+          break;
+      }
+
+      if (result === 'Error') {
+        resetCalculator();
+        updateDisplay(result);
+        return;
+      }
+
+      currentInput = result.toString();
+      previousInput = '';
+      operator = null;
+      updateDisplay(currentInput);
+      return;
+    }
+
+    // Handle multiple operator presses
+    if (currentInput === '' && previousInput === '') return; // Do nothing if no inputs
+    if (currentInput === '' && previousInput !== '') {
+      operator = operation; // Update the operator without affecting input
+      return;
+    }
+
+    // Perform calculation if previous input exists
+    if (previousInput && currentInput && operator) {
+      calculate();
+    }
+
+    operator = operation;
+    previousInput = currentInput;
+    currentInput = ''; // Clear the current input for the next number
+  });
+});
+
+
+// Function to calculate the result
+function calculate() {
+  let result;
+  const prev = parseFloat(previousInput);
+  const current = parseFloat(currentInput);
+
+  if (isNaN(prev) || isNaN(current)) return;
+
+  switch (operator) {
+    case '+':
+      result = prev + current;
+      break;
+    case '-':
+      result = prev - current;
+      break;
+    case 'x':
+      result = prev * current;
+      break;
+    case '/':
+      result = current === 0 ? 'Error' : prev / current;
+      break;
+    default:
+      return;
+  }
+
+  // Handle errors and update state
+  if (result === 'Error') {
+    resetCalculator();
+  } else {
+    currentInput = result.toString();
+    previousInput = '';
+    operator = null;
+  }
+  updateDisplay(currentInput);
+}
+
+// Handle equals button
+equalsButton.addEventListener('click', () => {
+  if (previousInput && currentInput && operator) {
+    calculate();
+  }
+});
+
+// Handle clear button
+clearButton.addEventListener('click', () => {
+  resetCalculator();
+});
+
+// Reset the calculator
+function resetCalculator() {
+  currentInput = '';
+  previousInput = '';
+  operator = null;
+  updateDisplay('0');
+}
+
+// Function to calculate the result
+function calculate() {
+  let result;
+  const prev = parseFloat(previousInput);
+  const current = parseFloat(currentInput);
+
+  if (isNaN(prev) || isNaN(current)) return;
+
+  switch (operator) {
+    case '+':
+      result = prev + current;
+      break;
+    case '-':
+      result = prev - current;
+      break;
+    case 'x':
+      result = prev * current;
+      break;
+    case '/':
+      result = current === 0 ? 'Error' : prev / current;
+      break;
+    case 'x^2':
+      result = prev ** 2;
+      break;
+    case '√x':
+      result = currentInput ? Math.sqrt(current) : Math.sqrt(prev);
+      break;
+    case '1/x':
+      result = currentInput ? 1 / current : 1 / prev;
+      break;
+    default:
+      return;
+  }
+
+  // Round the result to avoid floating-point issues
+  result = Math.round(result * 1000000000) / 1000000000;
+
+  currentInput = result.toString();
+  previousInput = '';
+  operator = null;
+  updateDisplay(currentInput);
+}
+
+function operatorClick() {
+        if (currentInput === '' && previousInput === '') return; // Ignore if no numbers are present
+        if (operator && currentInput === '') {
+            // Replace the operator if no current number is entered
+            operator = this.textContent;
+            return;
+        }
+
+        if (previousInput !== '' && currentInput !== '') {
+            calculate(); // Perform the calculation if both inputs are present
+        }
+
+        operator = this.textContent;
+        previousInput = currentInput;
+        currentInput = ''; // Clear the current input for the next number
+    }
+
+
+// Handle backspace button
+backspaceButton.addEventListener('click', () => {
+  currentInput = currentInput.slice(0, -1);
+  updateDisplay(currentInput);
+});
+
+// Initialize display
+updateDisplay('0');
+
+
+
+
+    </script>
+    
+
+
+</body>
+</html>
