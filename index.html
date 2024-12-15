@@ -8,88 +8,92 @@
     <style>
 
         body{
-            background-color: rgb(255, 241, 241);
+            background-color: rgb(255, 255, 255);
             aspect-ratio: 9/16;
             border-radius: 10px;
-            height: 700px;
-            width: 500px;
+            height: 730px;
+            width: 420px;
             align-items: center;
             justify-content: center;
-
+            /* border: 20px solid #8B0000; */
+            box-shadow: 0 0 20px 5px #8B0000;
+            border-radius: 20px;
         }
 
         .calculator{
             background-color: rgb(217, 38, 38);
             border-radius: 20px;
-            aspect-ratio: 9/16;
-            height: 700px;
-            width: 610px;
+            height: 730px;
+            width: 420px;
+            justify-items: center;
         }
 
         .display{
             background-color: black;
             height: 100px;
-            width: 580px;
+            width: 381px;
             border-radius: 15px;
             color: white;
-            font-size: 40px;
+            font-size: 35px;
             text-align: right;
             padding: 30px 30px 0px 0px;
+            border: 5px solid gold;
         }
 
         .heading{
             width: 290px;
-            height: 50px;
-            margin-top: 20px;
-            font-weight: bold;;
+            height: 60px;
+            margin: 30px 0px 20px 0px;
+            font-weight: bold;
             font-size: 30px;
-            padding:10px 0px 0px 0px;
             background-color: #e31262;
-            position:relative;
-            left: 170px;
             color: white;
-            text-align: center;
+            display: grid;
+            place-items: center;
             border-radius: 10px;
+
         }
 
         h1{
             text-align: center;
+            margin: 20px;
         }
 
         a{
             color: black
         }
 
-        .equal{
-            position: absolute;
-            left: 520px;
-            height: 380px;
-            bottom: 120px;
-            width: 80px;
+        button{
+            height: 60px;
+            width: 60px;
             font-weight: bold;
-            font-size: 30px;
+            font-size: 27px;
             margin: 10px 10px 10px 10px;
             background-color: yellow;
             border-radius: 10px;
         }
 
-        .one,.two,.three,.four,.five,.six,.seven,.eight,.nine,.zero,.dec,.add,.sub,.mul,.div,.inv,.sqr,.sqrt,.clr,.bckspc{
-            height: 80px;
-            width: 80px;
-            font-weight: bold;
-            font-size: 30px;
-            margin: 10px 10px 10px 10px;
-            background-color: yellow;
-            border-radius: 10px;
+        .equal{
+            height: 380px;
+            margin: 10px 17px 0px 0px;
+        }
+
+        .btncontainer{
+            display:inline-flex;
         }
 
         .one:hover,.two:hover,.three:hover,.four:hover,.five:hover,.six:hover,.seven:hover,.eight:hover,.nine:hover,.zero:hover,.dec:hover,.add:hover,.sub:hover,.mul:hover,.div:hover,.inv:hover,.sqr:hover,.sqrt:hover,.clr:hover,.bckspc:hover,.equal:hover{
             background-color:rgb(255, 217, 1);
         }
 
-        .one:active,.two:active,.three:active,.four:active,.five:active,.six:active,.seven:active,.eight:active,.nine:active,.zero:active,.dec:active,.add:active,.sub:active,.mul:active,.div:active,.inv:active,.sqr:active,.sqrt:active,.clr:active,.bckspc:active,.equal:active{
-            transform: scale(0.90);
+        .one:active,.two:active,.three:active,.four:active,.five:active,.six:active,.seven:active,.eight:active,.nine:active,.zero:active,.dec:active,.add:active,.sub:active,.mul:active,.div:active,.inv:active,.sqr:active,.sqrt:active,.clr:active,.bckspc:active{
+            transform: scale(0.95);
         }
+
+        .equal:active{
+            transform: scale(0.99);
+        }
+
 
     </style>
 
@@ -99,33 +103,48 @@
 
     <div class="calculator">
 
-        <div display class="display">0</div>
+        <div class="display">0</div>
 
         <div class="heading">
              Simple Calculator 
         </div>
 
-        <button datanumber class="one">1</button>
-        <button datanumber class="two">2</button>
-        <button datanumber class="three">3</button>
-        <button datanumber class="four">4</button>
-        <button datanumber class="five">5</button>
-        <button datanumber class="six">6</button>
-        <button datanumber class="seven">7</button>
-        <button datanumber class="eight">8</button>
-        <button datanumber class="nine">9</button>
-        <button datanumber class="zero">0</button>
-        <button datanumber class="dec">.</button>
-        <button dataresult class="equal">=</button>
-        <button dataoperator class="add">+</button>
-        <button dataoperator class="sub">-</button>
-        <button dataoperator class="mul">x</button>
-        <button dataoperator class="div">/</button>
-        <button dataoperator class="inv">1/x</button>
-        <button dataoperator class="sqr">x^2</button>
-        <button dataoperator class="sqrt">√x</button>
-        <button dataclear class="clr">C</button>
-        <button databckspc class="bckspc">BS</button>
+        <div class="btncontainer">
+            <div class="buttons">
+
+                <button datanumber class="one">1</button>
+                <button datanumber class="two">2</button>
+                <button datanumber class="three">3</button>
+                <button datanumber class="four">4</button>
+
+                <button datanumber class="five">5</button>
+                <button datanumber class="six">6</button>
+                <button datanumber class="seven">7</button>
+                <button datanumber class="eight">8</button>
+
+                <button datanumber class="nine">9</button>
+                <button datanumber class="zero">0</button>
+                <button datanumber class="dec">.</button>
+                <!-- <button dataresult class="equal">=</button> -->
+
+                <button dataoperator class="add">+</button>
+                <button dataoperator class="sub">-</button>
+                <button dataoperator class="mul">x</button>
+                <button dataoperator class="div">/</button>
+
+                <button dataoperator class="inv">1/x</button>
+                <button dataoperator class="sqr">x^2</button>
+                <button dataoperator class="sqrt">√x</button>
+                <button dataclear class="clr">C</button>
+
+                <button databckspc class="bckspc">BS</button>
+
+            </div>
+
+            <div class="eq">
+                <button dataresult class="equal">=</button>
+            </div>
+        </div>
 
         <section>
             <h1>Made By <a href="https://www.linkedin.com/in/shitalpal">Shital Pal</a></h1>
@@ -217,42 +236,6 @@ operatorButtons.forEach(button => {
   });
 });
 
-
-// Function to calculate the result
-function calculate() {
-  let result;
-  const prev = parseFloat(previousInput);
-  const current = parseFloat(currentInput);
-
-  if (isNaN(prev) || isNaN(current)) return;
-
-  switch (operator) {
-    case '+':
-      result = prev + current;
-      break;
-    case '-':
-      result = prev - current;
-      break;
-    case 'x':
-      result = prev * current;
-      break;
-    case '/':
-      result = current === 0 ? 'Error' : prev / current;
-      break;
-    default:
-      return;
-  }
-
-  // Handle errors and update state
-  if (result === 'Error') {
-    resetCalculator();
-  } else {
-    currentInput = result.toString();
-    previousInput = '';
-    operator = null;
-  }
-  updateDisplay(currentInput);
-}
 
 // Handle equals button
 equalsButton.addEventListener('click', () => {
